@@ -3,6 +3,7 @@
 
 В коде используется exit(-1) вместо исключения, потому что в случае исключения при использовании программы не всегда будет понятно, что исключение вызвано специально
 */
+#include <algorithm>
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -11,11 +12,26 @@
 #include <vector>
 #include <cstdint>
 
+#define MAX_RECURSION_DEPTH 100000
+
 using namespace std;
 
 
-void combined_floodfill(uint32_t elem, unordered_map<uint32_t, unordered_set<uint32_t>>& graph, unordered_map<uint32_t, uint32_t>& result, uint32_t current_recursion_depth){
+void calculate_distances(uint32_t elem, unordered_map<uint32_t, unordered_set<uint32_t>>& graph, unordered_map<uint32_t, uint32_t>& result, uint32_t current_recursion_depth){
+    if (!result.count(elem)) result[elem] = current_recursion_depth;
+    else {
+        uint32_t new_value = min(result[elem], current_recursion_depth);
+        bool value_changes = result[elem] == new_value ? 0 : 1;
+        result[elem] = new_value;
+        if (!value_changes) return;
+    }
+    if (current_recursion_depth > MAX_RECURSION_DEPTH) return; 
 
+    current_recursion_depth++;
+
+    for (uint32_t i : graph[elem]){
+        calculate_distances(i, graph, result, current_recursion_depth);
+    }
 }
 
 
@@ -49,6 +65,8 @@ int main(int argc, const char *argv[])
         graph[temp_vertex_1].insert(temp_vertex_2);
     }
     file >> target_vertex;
+
+    calculate_distances(target_vertex, graph, result, 0);
 
     
     return 0;
