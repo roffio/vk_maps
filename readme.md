@@ -16,7 +16,7 @@ cd vk_maps
 mkdir build
 cd build
 cmake ..
-make
+cmake --build .
 ```
 
 _Или скачайте скомпилированную версию_
