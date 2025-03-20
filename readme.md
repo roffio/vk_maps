@@ -5,11 +5,17 @@ Does as the name states
 ## Сборка
 ### Linux
 Нужно заранее иметь на компьютере cmake, make, git и компилятор C++
+#### Debug
 ```
 git clone https://github.com/roffio/vk_maps.git && cd vk_maps && mkdir build && cd build && cmake .. && make
 ```
+#### Release
+```
+git clone https://github.com/roffio/vk_maps.git && cd vk_maps && mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=release ..  && make
+```
 ### Windows 
-Нужно заранее иметь на компьютере cmake, make, git и компилятор C++
+Нужно заранее иметь на компьютере cmake, git и компилятор C++
+#### Debug
 ```
 git clone https://github.com/roffio/vk_maps.git
 cd vk_maps
@@ -17,6 +23,15 @@ mkdir build
 cd build
 cmake ..
 cmake --build .
+```
+#### Release
+```
+git clone https://github.com/roffio/vk_maps.git
+cd vk_maps
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE=Release ..
+cmake --build . --config release
 ```
 
 _Или скачайте скомпилированную версию_
